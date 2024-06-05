@@ -3,34 +3,25 @@ syntax = "proto3";
 package catalogue;
 
 option go_package = "nurs.catalogue.v1;cataloguev1";
+import "google/api/annotations.proto";
 
-service ItemService {
-  rpc CreateItem (CreateItemRequest) returns (CreateItemResponse);
-  rpc GetItem (GetItemRequest) returns (GetItemResponse);
-  rpc ListItems (ListItemsRequest) returns (ListItemsResponse);
-  rpc DeleteItem (DeleteItemRequest) returns (DeleteItemResponse);
-}
-
-
-message Item {
-  int32 id = 1;
-  string name = 2;
-}
-
-message CreateItemRequest {
-  string name = 1;
-}
-
-message CreateItemResponse {
-  Item item = 1;
-}
-
-message GetItemRequest {
-  int32 id = 1;
-}
-
-message GetItemResponse {
-  Item item = 1;
+service CatalogueService {
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
+    option(google.api.http) = {
+      post: "/v1/items"
+      body: "*"
+    };
+  };
+  rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {
+    option(google.api.http) = {
+      get: "/v1/items"
+    };
+  };
+  rpc GetItem(GetItemRequest) returns (GetItemResponse) {
+    option(google.api.http) = {
+      get: "/v1/items/{id}"
+    };
+  };
 }
 
 message ListItemsRequest {}
@@ -39,8 +30,35 @@ message ListItemsResponse {
   repeated Item items = 1;
 }
 
+message GetItemRequest {
+  string id = 1;
+}
+
+message GetItemResponse {
+  Item item = 1;
+}
+
+message CreateItemRequest {
+  Item item = 1;
+}
+message CreateItemResponse {
+  Item item = 1;
+}
+
+message Item {
+  int32 id = 1 [json_name="id"];
+  string name = 2 [json_name="name"];
+  int32 price = 3 [json_name="price"];
+  string description = 4 [json_name="description"];
+  int32 quantity = 5 [json_name="quantity"];
+  string imageUrl = 6 [json_name="image_url"];
+}
+
+
 message DeleteItemRequest {
   int32 id = 1;
 }
 
-message DeleteItemResponse {}
+message DeleteItemResponse {
+  bool isDeleted = 1;
+}
