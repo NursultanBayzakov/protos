@@ -19,200 +19,163 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SSOService_RegisterUser_FullMethodName     = "/sso.SSOService/RegisterUser"
-	SSOService_AuthenticateUser_FullMethodName = "/sso.SSOService/AuthenticateUser"
-	SSOService_GetUser_FullMethodName          = "/sso.SSOService/GetUser"
-	SSOService_DeleteUser_FullMethodName       = "/sso.SSOService/DeleteUser"
+	Auth_Register_FullMethodName = "/sso.Auth/Register"
+	Auth_Login_FullMethodName    = "/sso.Auth/Login"
+	Auth_IsAdmin_FullMethodName  = "/sso.Auth/IsAdmin"
 )
 
-// SSOServiceClient is the client API for SSOService service.
+// AuthClient is the client API for Auth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type SSOServiceClient interface {
-	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
-	AuthenticateUser(ctx context.Context, in *AuthenticateUserRequest, opts ...grpc.CallOption) (*AuthenticateUserResponse, error)
-	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
-	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
+type AuthClient interface {
+	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error)
 }
 
-type sSOServiceClient struct {
+type authClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSSOServiceClient(cc grpc.ClientConnInterface) SSOServiceClient {
-	return &sSOServiceClient{cc}
+func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
+	return &authClient{cc}
 }
 
-func (c *sSOServiceClient) RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error) {
-	out := new(RegisterUserResponse)
-	err := c.cc.Invoke(ctx, SSOService_RegisterUser_FullMethodName, in, out, opts...)
+func (c *authClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
+	out := new(RegisterResponse)
+	err := c.cc.Invoke(ctx, Auth_Register_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sSOServiceClient) AuthenticateUser(ctx context.Context, in *AuthenticateUserRequest, opts ...grpc.CallOption) (*AuthenticateUserResponse, error) {
-	out := new(AuthenticateUserResponse)
-	err := c.cc.Invoke(ctx, SSOService_AuthenticateUser_FullMethodName, in, out, opts...)
+func (c *authClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, Auth_Login_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sSOServiceClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
-	out := new(GetUserResponse)
-	err := c.cc.Invoke(ctx, SSOService_GetUser_FullMethodName, in, out, opts...)
+func (c *authClient) IsAdmin(ctx context.Context, in *IsAdminRequest, opts ...grpc.CallOption) (*IsAdminResponse, error) {
+	out := new(IsAdminResponse)
+	err := c.cc.Invoke(ctx, Auth_IsAdmin_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sSOServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
-	out := new(DeleteUserResponse)
-	err := c.cc.Invoke(ctx, SSOService_DeleteUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// SSOServiceServer is the server API for SSOService service.
-// All implementations must embed UnimplementedSSOServiceServer
+// AuthServer is the server API for Auth service.
+// All implementations must embed UnimplementedAuthServer
 // for forward compatibility
-type SSOServiceServer interface {
-	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
-	AuthenticateUser(context.Context, *AuthenticateUserRequest) (*AuthenticateUserResponse, error)
-	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
-	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	mustEmbedUnimplementedSSOServiceServer()
+type AuthServer interface {
+	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error)
+	mustEmbedUnimplementedAuthServer()
 }
 
-// UnimplementedSSOServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedSSOServiceServer struct {
+// UnimplementedAuthServer must be embedded to have forward compatible implementations.
+type UnimplementedAuthServer struct {
 }
 
-func (UnimplementedSSOServiceServer) RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+func (UnimplementedAuthServer) Register(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedSSOServiceServer) AuthenticateUser(context.Context, *AuthenticateUserRequest) (*AuthenticateUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AuthenticateUser not implemented")
+func (UnimplementedAuthServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedSSOServiceServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+func (UnimplementedAuthServer) IsAdmin(context.Context, *IsAdminRequest) (*IsAdminResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsAdmin not implemented")
 }
-func (UnimplementedSSOServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
-}
-func (UnimplementedSSOServiceServer) mustEmbedUnimplementedSSOServiceServer() {}
+func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
-// UnsafeSSOServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to SSOServiceServer will
+// UnsafeAuthServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AuthServer will
 // result in compilation errors.
-type UnsafeSSOServiceServer interface {
-	mustEmbedUnimplementedSSOServiceServer()
+type UnsafeAuthServer interface {
+	mustEmbedUnimplementedAuthServer()
 }
 
-func RegisterSSOServiceServer(s grpc.ServiceRegistrar, srv SSOServiceServer) {
-	s.RegisterService(&SSOService_ServiceDesc, srv)
+func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
+	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
-func _SSOService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterUserRequest)
+func _Auth_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SSOServiceServer).RegisterUser(ctx, in)
+		return srv.(AuthServer).Register(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SSOService_RegisterUser_FullMethodName,
+		FullMethod: Auth_Register_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOServiceServer).RegisterUser(ctx, req.(*RegisterUserRequest))
+		return srv.(AuthServer).Register(ctx, req.(*RegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SSOService_AuthenticateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AuthenticateUserRequest)
+func _Auth_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SSOServiceServer).AuthenticateUser(ctx, in)
+		return srv.(AuthServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SSOService_AuthenticateUser_FullMethodName,
+		FullMethod: Auth_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOServiceServer).AuthenticateUser(ctx, req.(*AuthenticateUserRequest))
+		return srv.(AuthServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SSOService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserRequest)
+func _Auth_IsAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsAdminRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SSOServiceServer).GetUser(ctx, in)
+		return srv.(AuthServer).IsAdmin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: SSOService_GetUser_FullMethodName,
+		FullMethod: Auth_IsAdmin_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOServiceServer).GetUser(ctx, req.(*GetUserRequest))
+		return srv.(AuthServer).IsAdmin(ctx, req.(*IsAdminRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SSOService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SSOServiceServer).DeleteUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SSOService_DeleteUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SSOServiceServer).DeleteUser(ctx, req.(*DeleteUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// SSOService_ServiceDesc is the grpc.ServiceDesc for SSOService service.
+// Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var SSOService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sso.SSOService",
-	HandlerType: (*SSOServiceServer)(nil),
+var Auth_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "sso.Auth",
+	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RegisterUser",
-			Handler:    _SSOService_RegisterUser_Handler,
+			MethodName: "Register",
+			Handler:    _Auth_Register_Handler,
 		},
 		{
-			MethodName: "AuthenticateUser",
-			Handler:    _SSOService_AuthenticateUser_Handler,
+			MethodName: "Login",
+			Handler:    _Auth_Login_Handler,
 		},
 		{
-			MethodName: "GetUser",
-			Handler:    _SSOService_GetUser_Handler,
-		},
-		{
-			MethodName: "DeleteUser",
-			Handler:    _SSOService_DeleteUser_Handler,
+			MethodName: "IsAdmin",
+			Handler:    _Auth_IsAdmin_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

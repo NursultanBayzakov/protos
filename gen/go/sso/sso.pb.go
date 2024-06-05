@@ -20,18 +20,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type User struct {
+type RegisterRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id       int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Email    string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	Email    string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 }
 
-func (x *User) Reset() {
-	*x = User{}
+func (x *RegisterRequest) Reset() {
+	*x = RegisterRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -39,13 +38,13 @@ func (x *User) Reset() {
 	}
 }
 
-func (x *User) String() string {
+func (x *RegisterRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*User) ProtoMessage() {}
+func (*RegisterRequest) ProtoMessage() {}
 
-func (x *User) ProtoReflect() protoreflect.Message {
+func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -57,44 +56,35 @@ func (x *User) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use User.ProtoReflect.Descriptor instead.
-func (*User) Descriptor() ([]byte, []int) {
+// Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
+func (*RegisterRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *User) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *User) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-func (x *User) GetEmail() string {
+func (x *RegisterRequest) GetEmail() string {
 	if x != nil {
 		return x.Email
 	}
 	return ""
 }
 
-type RegisterUserRequest struct {
+func (x *RegisterRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type RegisterResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Email    string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
-	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	UserId int64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 }
 
-func (x *RegisterUserRequest) Reset() {
-	*x = RegisterUserRequest{}
+func (x *RegisterResponse) Reset() {
+	*x = RegisterResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -102,13 +92,13 @@ func (x *RegisterUserRequest) Reset() {
 	}
 }
 
-func (x *RegisterUserRequest) String() string {
+func (x *RegisterResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RegisterUserRequest) ProtoMessage() {}
+func (*RegisterResponse) ProtoMessage() {}
 
-func (x *RegisterUserRequest) ProtoReflect() protoreflect.Message {
+func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -120,42 +110,30 @@ func (x *RegisterUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RegisterUserRequest.ProtoReflect.Descriptor instead.
-func (*RegisterUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
+func (*RegisterResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RegisterUserRequest) GetUsername() string {
+func (x *RegisterResponse) GetUserId() int64 {
 	if x != nil {
-		return x.Username
+		return x.UserId
 	}
-	return ""
+	return 0
 }
 
-func (x *RegisterUserRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
-
-func (x *RegisterUserRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-type RegisterUserResponse struct {
+type LoginRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	User *User `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	Email    string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	AppId    int32  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 }
 
-func (x *RegisterUserResponse) Reset() {
-	*x = RegisterUserResponse{}
+func (x *LoginRequest) Reset() {
+	*x = LoginRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -163,13 +141,13 @@ func (x *RegisterUserResponse) Reset() {
 	}
 }
 
-func (x *RegisterUserResponse) String() string {
+func (x *LoginRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RegisterUserResponse) ProtoMessage() {}
+func (*LoginRequest) ProtoMessage() {}
 
-func (x *RegisterUserResponse) ProtoReflect() protoreflect.Message {
+func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -181,29 +159,42 @@ func (x *RegisterUserResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RegisterUserResponse.ProtoReflect.Descriptor instead.
-func (*RegisterUserResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
+func (*LoginRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *RegisterUserResponse) GetUser() *User {
+func (x *LoginRequest) GetEmail() string {
 	if x != nil {
-		return x.User
+		return x.Email
 	}
-	return nil
+	return ""
 }
 
-type AuthenticateUserRequest struct {
+func (x *LoginRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *LoginRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
+}
+
+type LoginResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Token string `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 }
 
-func (x *AuthenticateUserRequest) Reset() {
-	*x = AuthenticateUserRequest{}
+func (x *LoginResponse) Reset() {
+	*x = LoginResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -211,13 +202,13 @@ func (x *AuthenticateUserRequest) Reset() {
 	}
 }
 
-func (x *AuthenticateUserRequest) String() string {
+func (x *LoginResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AuthenticateUserRequest) ProtoMessage() {}
+func (*LoginResponse) ProtoMessage() {}
 
-func (x *AuthenticateUserRequest) ProtoReflect() protoreflect.Message {
+func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -229,36 +220,28 @@ func (x *AuthenticateUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AuthenticateUserRequest.ProtoReflect.Descriptor instead.
-func (*AuthenticateUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
+func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *AuthenticateUserRequest) GetUsername() string {
+func (x *LoginResponse) GetToken() string {
 	if x != nil {
-		return x.Username
+		return x.Token
 	}
 	return ""
 }
 
-func (x *AuthenticateUserRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-type AuthenticateUserResponse struct {
+type IsAdminRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	User  *User  `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	UserId int64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 }
 
-func (x *AuthenticateUserResponse) Reset() {
-	*x = AuthenticateUserResponse{}
+func (x *IsAdminRequest) Reset() {
+	*x = IsAdminRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -266,13 +249,13 @@ func (x *AuthenticateUserResponse) Reset() {
 	}
 }
 
-func (x *AuthenticateUserResponse) String() string {
+func (x *IsAdminRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AuthenticateUserResponse) ProtoMessage() {}
+func (*IsAdminRequest) ProtoMessage() {}
 
-func (x *AuthenticateUserResponse) ProtoReflect() protoreflect.Message {
+func (x *IsAdminRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -284,35 +267,28 @@ func (x *AuthenticateUserResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AuthenticateUserResponse.ProtoReflect.Descriptor instead.
-func (*AuthenticateUserResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use IsAdminRequest.ProtoReflect.Descriptor instead.
+func (*IsAdminRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *AuthenticateUserResponse) GetToken() string {
+func (x *IsAdminRequest) GetUserId() int64 {
 	if x != nil {
-		return x.Token
+		return x.UserId
 	}
-	return ""
+	return 0
 }
 
-func (x *AuthenticateUserResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
-type GetUserRequest struct {
+type IsAdminResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	IsAdmin bool `protobuf:"varint,1,opt,name=is_admin,json=isAdmin,proto3" json:"is_admin,omitempty"`
 }
 
-func (x *GetUserRequest) Reset() {
-	*x = GetUserRequest{}
+func (x *IsAdminResponse) Reset() {
+	*x = IsAdminResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_sso_sso_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -320,13 +296,13 @@ func (x *GetUserRequest) Reset() {
 	}
 }
 
-func (x *GetUserRequest) String() string {
+func (x *IsAdminResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserRequest) ProtoMessage() {}
+func (*IsAdminResponse) ProtoMessage() {}
 
-func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
+func (x *IsAdminResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -338,205 +314,53 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
-func (*GetUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use IsAdminResponse.ProtoReflect.Descriptor instead.
+func (*IsAdminResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *GetUserRequest) GetId() int32 {
+func (x *IsAdminResponse) GetIsAdmin() bool {
 	if x != nil {
-		return x.Id
+		return x.IsAdmin
 	}
-	return 0
-}
-
-type GetUserResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	User *User `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-}
-
-func (x *GetUserResponse) Reset() {
-	*x = GetUserResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_sso_sso_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetUserResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetUserResponse) ProtoMessage() {}
-
-func (x *GetUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetUserResponse.ProtoReflect.Descriptor instead.
-func (*GetUserResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *GetUserResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
-type DeleteUserRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *DeleteUserRequest) Reset() {
-	*x = DeleteUserRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_sso_sso_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteUserRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteUserRequest) ProtoMessage() {}
-
-func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
-func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *DeleteUserRequest) GetId() int32 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-type DeleteUserResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DeleteUserResponse) Reset() {
-	*x = DeleteUserResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_sso_sso_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteUserResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteUserResponse) ProtoMessage() {}
-
-func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteUserResponse.ProtoReflect.Descriptor instead.
-func (*DeleteUserResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{8}
+	return false
 }
 
 var File_sso_sso_proto protoreflect.FileDescriptor
 
 var file_sso_sso_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x73, 0x73, 0x6f, 0x2f, 0x73, 0x73, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x03, 0x73, 0x73, 0x6f, 0x22, 0x48, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08,
-	0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69,
-	0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x22, 0x63,
-	0x0a, 0x13, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d,
-	0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77,
-	0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77,
-	0x6f, 0x72, 0x64, 0x22, 0x35, 0x0a, 0x14, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x04, 0x75,
-	0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x73, 0x73, 0x6f, 0x2e,
-	0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x51, 0x0a, 0x17, 0x41, 0x75,
-	0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d,
-	0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x4f, 0x0a,
-	0x18, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
-	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b,
-	0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12,
-	0x1d, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e,
-	0x73, 0x73, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x20,
-	0x0a, 0x0e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64,
-	0x22, 0x30, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x09, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73,
-	0x65, 0x72, 0x22, 0x23, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x14, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x97, 0x02,
-	0x0a, 0x0a, 0x53, 0x53, 0x4f, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x43, 0x0a, 0x0c,
-	0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x12, 0x18, 0x2e, 0x73,
-	0x73, 0x6f, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x52, 0x65, 0x67,
-	0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x4f, 0x0a, 0x10, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74,
-	0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1c, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x41, 0x75, 0x74, 0x68,
-	0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e,
-	0x74, 0x69, 0x63, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x34, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x13, 0x2e,
-	0x73, 0x73, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x14, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x16, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17,
-	0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
+	0x03, 0x73, 0x73, 0x6f, 0x22, 0x43, 0x0a, 0x0f, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a,
+	0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x2b, 0x0a, 0x10, 0x52, 0x65, 0x67,
+	0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x17, 0x0a,
+	0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06,
+	0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x57, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08,
+	0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x15, 0x0a, 0x06, 0x61, 0x70, 0x70, 0x5f,
+	0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x61, 0x70, 0x70, 0x49, 0x64, 0x22,
+	0x25, 0x0a, 0x0d, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x29, 0x0a, 0x0e, 0x49, 0x73, 0x41, 0x64, 0x6d, 0x69,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72,
+	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x64, 0x22, 0x2c, 0x0a, 0x0f, 0x49, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x69, 0x73, 0x5f, 0x61, 0x64, 0x6d, 0x69, 0x6e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x69, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x32,
+	0xa5, 0x01, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x37, 0x0a, 0x08, 0x52, 0x65, 0x67, 0x69,
+	0x73, 0x74, 0x65, 0x72, 0x12, 0x14, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73,
+	0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x73, 0x73, 0x6f,
+	0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x2e, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x11, 0x2e, 0x73, 0x73, 0x6f,
+	0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e,
+	0x73, 0x73, 0x6f, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x34, 0x0a, 0x07, 0x49, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x12, 0x13, 0x2e, 0x73,
+	0x73, 0x6f, 0x2e, 0x49, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x14, 0x2e, 0x73, 0x73, 0x6f, 0x2e, 0x49, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x13, 0x5a, 0x11, 0x6e, 0x75, 0x72, 0x73, 0x2e,
 	0x73, 0x73, 0x6f, 0x2e, 0x76, 0x31, 0x3b, 0x73, 0x73, 0x6f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x33,
@@ -554,35 +378,27 @@ func file_sso_sso_proto_rawDescGZIP() []byte {
 	return file_sso_sso_proto_rawDescData
 }
 
-var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_sso_sso_proto_goTypes = []interface{}{
-	(*User)(nil),                     // 0: sso.User
-	(*RegisterUserRequest)(nil),      // 1: sso.RegisterUserRequest
-	(*RegisterUserResponse)(nil),     // 2: sso.RegisterUserResponse
-	(*AuthenticateUserRequest)(nil),  // 3: sso.AuthenticateUserRequest
-	(*AuthenticateUserResponse)(nil), // 4: sso.AuthenticateUserResponse
-	(*GetUserRequest)(nil),           // 5: sso.GetUserRequest
-	(*GetUserResponse)(nil),          // 6: sso.GetUserResponse
-	(*DeleteUserRequest)(nil),        // 7: sso.DeleteUserRequest
-	(*DeleteUserResponse)(nil),       // 8: sso.DeleteUserResponse
+	(*RegisterRequest)(nil),  // 0: sso.RegisterRequest
+	(*RegisterResponse)(nil), // 1: sso.RegisterResponse
+	(*LoginRequest)(nil),     // 2: sso.LoginRequest
+	(*LoginResponse)(nil),    // 3: sso.LoginResponse
+	(*IsAdminRequest)(nil),   // 4: sso.IsAdminRequest
+	(*IsAdminResponse)(nil),  // 5: sso.IsAdminResponse
 }
 var file_sso_sso_proto_depIdxs = []int32{
-	0, // 0: sso.RegisterUserResponse.user:type_name -> sso.User
-	0, // 1: sso.AuthenticateUserResponse.user:type_name -> sso.User
-	0, // 2: sso.GetUserResponse.user:type_name -> sso.User
-	1, // 3: sso.SSOService.RegisterUser:input_type -> sso.RegisterUserRequest
-	3, // 4: sso.SSOService.AuthenticateUser:input_type -> sso.AuthenticateUserRequest
-	5, // 5: sso.SSOService.GetUser:input_type -> sso.GetUserRequest
-	7, // 6: sso.SSOService.DeleteUser:input_type -> sso.DeleteUserRequest
-	2, // 7: sso.SSOService.RegisterUser:output_type -> sso.RegisterUserResponse
-	4, // 8: sso.SSOService.AuthenticateUser:output_type -> sso.AuthenticateUserResponse
-	6, // 9: sso.SSOService.GetUser:output_type -> sso.GetUserResponse
-	8, // 10: sso.SSOService.DeleteUser:output_type -> sso.DeleteUserResponse
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // 0: sso.Auth.Register:input_type -> sso.RegisterRequest
+	2, // 1: sso.Auth.Login:input_type -> sso.LoginRequest
+	4, // 2: sso.Auth.IsAdmin:input_type -> sso.IsAdminRequest
+	1, // 3: sso.Auth.Register:output_type -> sso.RegisterResponse
+	3, // 4: sso.Auth.Login:output_type -> sso.LoginResponse
+	5, // 5: sso.Auth.IsAdmin:output_type -> sso.IsAdminResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_sso_sso_proto_init() }
@@ -592,7 +408,7 @@ func file_sso_sso_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_sso_sso_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*User); i {
+			switch v := v.(*RegisterRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -604,7 +420,7 @@ func file_sso_sso_proto_init() {
 			}
 		}
 		file_sso_sso_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterUserRequest); i {
+			switch v := v.(*RegisterResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -616,7 +432,7 @@ func file_sso_sso_proto_init() {
 			}
 		}
 		file_sso_sso_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RegisterUserResponse); i {
+			switch v := v.(*LoginRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -628,7 +444,7 @@ func file_sso_sso_proto_init() {
 			}
 		}
 		file_sso_sso_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuthenticateUserRequest); i {
+			switch v := v.(*LoginResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -640,7 +456,7 @@ func file_sso_sso_proto_init() {
 			}
 		}
 		file_sso_sso_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuthenticateUserResponse); i {
+			switch v := v.(*IsAdminRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -652,43 +468,7 @@ func file_sso_sso_proto_init() {
 			}
 		}
 		file_sso_sso_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_sso_sso_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_sso_sso_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_sso_sso_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserResponse); i {
+			switch v := v.(*IsAdminResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -706,7 +486,7 @@ func file_sso_sso_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_sso_sso_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
