@@ -3,11 +3,27 @@ syntax = "proto3";
 package sso;
 
 option go_package = "github.com/NursultanBayzakov/protos/gen/go/sso;ssov1";
+import "google/api/annotations.proto";
 
 service Auth {
-  rpc Register(RegisterRequest) returns (RegisterResponse);
-  rpc Login(LoginRequest) returns (LoginResponse);
-  rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse){
+    option (google.api.http) = {
+      post: "/v1/users/register",
+      body: "*"
+    };
+  };
+  rpc Login(LoginRequest) returns (LoginResponse){
+    option (google.api.http) = {
+      post: "/v1/users/login",
+      body: "*"
+    };
+  };
+  rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/isAdmin",
+      body: "*"
+    };
+  };
 }
 
 message RegisterRequest {
